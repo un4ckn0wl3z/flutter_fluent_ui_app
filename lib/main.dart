@@ -1,4 +1,6 @@
 import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter_fluent_ui_app/models/article_category.dart';
+import 'package:flutter_fluent_ui_app/models/news_page.dart';
 import 'package:window_manager/window_manager.dart';
 
 void main() async {
@@ -52,6 +54,36 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> with WindowListener {
   int paneIndex = 0;
   final viewKey = GlobalKey();
+  final List<NewsPage> pages = const [
+    NewsPage(
+        title: 'Top Headlines',
+        iconData: FluentIcons.news,
+        category: ArticleCategory.general),
+    NewsPage(
+        title: 'Business',
+        iconData: FluentIcons.business_center_logo,
+        category: ArticleCategory.business),
+    NewsPage(
+        title: 'Technology',
+        iconData: FluentIcons.laptop_secure,
+        category: ArticleCategory.technology),
+    NewsPage(
+        title: 'Entertainment',
+        iconData: FluentIcons.my_movies_t_v,
+        category: ArticleCategory.entertainment),
+    NewsPage(
+        title: 'Sports',
+        iconData: FluentIcons.more_sports,
+        category: ArticleCategory.sports),
+    NewsPage(
+        title: 'Science',
+        iconData: FluentIcons.communications,
+        category: ArticleCategory.sicence),
+    NewsPage(
+        title: 'Health',
+        iconData: FluentIcons.health,
+        category: ArticleCategory.health)
+  ];
 
   @override
   void initState() {
@@ -107,12 +139,12 @@ class _MyHomePageState extends State<MyHomePage> with WindowListener {
           });
         },
         displayMode: PaneDisplayMode.compact,
-        items: [
-          PaneItem(
-            title: const Text('Top Headlines'),
-            icon: const Icon(FluentIcons.news),
-          )
-        ],
+        items: pages.map<NavigationPaneItem>((e) {
+          return PaneItem(
+            title: Text(e.title),
+            icon: Icon(e.iconData),
+          );
+        }).toList(),
       ),
       content: NavigationBody.builder(
           index: paneIndex,
