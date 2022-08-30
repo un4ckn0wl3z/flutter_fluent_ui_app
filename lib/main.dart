@@ -13,7 +13,6 @@ void main() async {
     await windowManager.center();
     await windowManager.show();
     await windowManager.setSkipTaskbar(false);
-
   });
   runApp(const MyApp());
 }
@@ -36,7 +35,7 @@ class MyApp extends StatelessWidget {
       ),
       home: const MyHomePage(
         title: 'News App',
-        ),
+      ),
     );
   }
 }
@@ -50,8 +49,8 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with WindowListener  {
-
+class _MyHomePageState extends State<MyHomePage> with WindowListener {
+  int paneIndex = 0;
   final viewKey = GlobalKey();
 
   @override
@@ -67,16 +66,59 @@ class _MyHomePageState extends State<MyHomePage> with WindowListener  {
     super.dispose();
   }
 
-  // https://youtu.be/shJIhLf5838?t=1228
   @override
-  void onWindowClose() {
-    super.onWindowClose();
+  void onWindowClose() async {
+    bool isPreventClose = await windowManager.isPreventClose();
+
+    if (isPreventClose) {
+      showDialog(
+          context: context,
+          builder: (_) {
+            return ContentDialog(
+              title: const Text('Confirm close'),
+              content: const Text('Are you sure want to close the app?'),
+              actions: [
+                FilledButton(
+                    child: const Text('Yes'),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      windowManager.destroy();
+                    }),
+                FilledButton(
+                    child: const Text('No'),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    })
+              ],
+            );
+          });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Text('data');
+    return NavigationView(
+      key: viewKey,
+      pane: NavigationPane(
+        selected: paneIndex,
+        onChanged: (index) {
+          setState(() {
+            paneIndex = index;
+          });
+        },
+        displayMode: PaneDisplayMode.compact,
+        items: [
+          PaneItem(
+            title: const Text('Top Headlines'),
+            icon: const Icon(FluentIcons.news),
+          )
+        ],
+      ),
+      content: NavigationBody.builder(
+          index: paneIndex,
+          itemBuilder: (context, index) {
+            return Text('Selected index $index');
+          }),
+    );
   }
-
-
 }
