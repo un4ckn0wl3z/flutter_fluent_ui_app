@@ -1,8 +1,10 @@
 import 'dart:developer';
 
+import 'package:clipboard/clipboard.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart' as material;
 import 'package:flutter_fluent_ui_app/models/article.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -100,12 +102,18 @@ class NewsItem extends StatelessWidget {
                         MenuFlyoutItem(
                           text: const Text('Send'),
                           leading: const Icon(FluentIcons.send),
-                          onPressed: () {},
+                          onPressed: () {
+                            Share.share(
+                                'Check out this article ${article.url}');
+                          },
                         ),
                         MenuFlyoutItem(
                           text: const Text('Copy URL'),
                           leading: const Icon(FluentIcons.copy),
-                          onPressed: () {},
+                          onPressed: () {
+                            FlutterClipboard.copy(article.url).then((value) =>
+                                _showCopiedSnackbar(context, article.url));
+                          },
                         ),
                       ],
                     )
@@ -116,6 +124,30 @@ class NewsItem extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+
+  void _showCopiedSnackbar(BuildContext context, String copiedText) {
+    showSnackbar(
+      context,
+      Snackbar(
+        content: RichText(
+          text: TextSpan(
+            text: 'Copied ',
+            style: const TextStyle(color: Colors.white),
+            children: [
+              TextSpan(
+                text: copiedText,
+                style: TextStyle(
+                  color: Colors.orange,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ],
+          ),
+        ),
+        extended: true,
+      ),
     );
   }
 }
