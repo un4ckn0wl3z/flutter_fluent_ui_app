@@ -1,9 +1,11 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart' as material;
+import 'package:flutter_fluent_ui_app/models/article.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 class NewsItem extends StatelessWidget {
-  const NewsItem({Key? key}) : super(key: key);
+  final Article article;
+  const NewsItem({Key? key, required this.article}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,8 +34,7 @@ class NewsItem extends StatelessWidget {
                     );
                   }),
                   fit: BoxFit.cover,
-                  image:
-                      'https://www.infoquest.co.th/wp-content/uploads/2022/07/20220705_canva_%E0%B8%88%E0%B8%B5%E0%B8%99%E0%B8%99%E0%B8%B2%E0%B8%8B%E0%B9%88%E0%B8%B2-1024x576.png'),
+                  image: article.urlToImage ?? ''),
             ),
           ),
           Expanded(
@@ -44,7 +45,7 @@ class NewsItem extends StatelessWidget {
                 right: 8,
               ),
               child: Text(
-                'This is test message',
+                article.title,
                 style: typography.bodyLarge?.apply(fontSizeFactor: 1),
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
@@ -61,7 +62,7 @@ class NewsItem extends StatelessWidget {
               children: [
                 Expanded(
                   child: Text(
-                    'Bloomburg - 2 hours ago',
+                    article.source,
                     style: typography.caption?.apply(fontSizeFactor: 1),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
