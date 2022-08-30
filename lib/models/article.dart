@@ -3,14 +3,14 @@ import 'package:timeago/timeago.dart' as timeago;
 
 class Article {
   final String title;
-  final String uri;
+  final String url;
   final DateTime publishedAt;
   final String source;
   final String? urlToImage;
 
   Article({
     required this.title,
-    required this.uri,
+    required this.url,
     required this.publishedAt,
     required this.source,
     this.urlToImage,
@@ -19,16 +19,21 @@ class Article {
   String captionText() {
     final formattedPublishedAt =
         timeago.format(publishedAt, locale: "en_short");
-    return "$source $formattedPublishedAt";
+    return "$source $formattedPublishedAt ago";
   }
 
   factory Article.fromJson(Map<String, dynamic> json) {
     return Article(
       title: json['title'] ?? "",
-      uri: json['uri'] ?? "",
+      url: json['url'] ?? "",
       publishedAt: DateTime.tryParse(json['publishedAt']) ?? DateTime.now(),
       source: json['source']['name'],
       urlToImage: json['urlToImage'],
     );
+  }
+
+  @override
+  String toString() {
+    return 'Article(title: $title, uri: $url, publishedAt: $publishedAt, source: $source, urlToImage: $urlToImage)';
   }
 }
