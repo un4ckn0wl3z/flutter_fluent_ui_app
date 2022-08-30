@@ -7,3 +7,9 @@ enum ArticleCategory {
   science,
   health
 }
+
+extension ParseToString on ArticleCategory {
+  String toShortString() {
+    return this.toString().split('.').last;
+  }
+}

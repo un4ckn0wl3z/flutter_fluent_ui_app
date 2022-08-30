@@ -16,7 +16,7 @@ class NewsApi {
     url += '/top-headlines';
     url += '?apiKey=$apiKey';
     url += '&language=en';
-    url += '&category=${categoryQueryParamValue(category)}';
+    url += '&category=${category.toShortString()}';
 
     final response = await http.get(Uri.parse(url));
     if (response.statusCode != HttpStatus.ok) {
@@ -32,26 +32,5 @@ class NewsApi {
     final List<Article> articles =
         articlesJSON.map<Article>((e) => Article.fromJson(e)).toList();
     return articles;
-  }
-}
-
-String categoryQueryParamValue(ArticleCategory category) {
-  switch (category) {
-    case ArticleCategory.general:
-      return "general";
-    case ArticleCategory.business:
-      return "business";
-    case ArticleCategory.technology:
-      return "technology";
-    case ArticleCategory.entertainment:
-      return "entertainment";
-    case ArticleCategory.sports:
-      return "sports";
-    case ArticleCategory.science:
-      return "science";
-    case ArticleCategory.health:
-      return "health";
-    default:
-      return "general";
   }
 }
