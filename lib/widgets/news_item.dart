@@ -45,12 +45,51 @@ class NewsItem extends StatelessWidget {
               ),
               child: Text(
                 'This is test message',
-                style: typography.bodyLarge?.apply(fontSizeFactor: 0.8),
+                style: typography.bodyLarge?.apply(fontSizeFactor: 1),
                 maxLines: 3,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.only(
+              top: 8,
+              right: 8,
+              left: 8,
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    'Bloomburg - 2 hours ago',
+                    style: typography.caption?.apply(fontSizeFactor: 1),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                DropDownButton(
+                  title: const Icon(FluentIcons.share),
+                  items: [
+                    MenuFlyoutItem(
+                      text: const Text('Open in Browser'),
+                      leading: const Icon(FluentIcons.edge_logo),
+                      onPressed: () {},
+                    ),
+                    MenuFlyoutItem(
+                      text: const Text('Send'),
+                      leading: const Icon(FluentIcons.send),
+                      onPressed: () {},
+                    ),
+                    MenuFlyoutItem(
+                      text: const Text('Copy URL'),
+                      leading: const Icon(FluentIcons.copy),
+                      onPressed: () {},
+                    ),
+                  ],
+                )
+              ],
+            ),
+          )
         ],
       ),
     );
