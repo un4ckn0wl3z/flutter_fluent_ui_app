@@ -15,7 +15,7 @@ class NewsApi {
     var url = baseURL;
     url += '/top-headlines';
     url += '?apiKey=$apiKey';
-    url += '&language=en';
+    url += '&language=th';
     url += '&category=${category.toShortString()}';
 
     final response = await http.get(Uri.parse(url));
