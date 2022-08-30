@@ -1,6 +1,8 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_fluent_ui_app/models/news_page.dart';
 
+import 'news_item.dart';
+
 class NewsListPage extends StatefulWidget {
   final NewsPage newsPage;
   const NewsListPage({Key? key, required this.newsPage}) : super(key: key);
@@ -23,11 +25,10 @@ class _NewsListPageState extends State<NewsListPage> {
           mainAxisSpacing: 10,
           crossAxisSpacing: 10,
         ),
+        padding: const EdgeInsets.all(16),
+        itemCount: 10,
         itemBuilder: ((context, index) {
-          return Container(
-            color: Colors.blue,
-            child: Text('Item $index'),
-          );
+          return NewsItem();
         }),
       ),
     );
