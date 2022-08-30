@@ -19,7 +19,7 @@ class Article {
   String captionText() {
     final formattedPublishedAt =
         timeago.format(publishedAt, locale: "en_short");
-    return "$source $formattedPublishedAt ago";
+    return "$source ~ $formattedPublishedAt ago";
   }
 
   factory Article.fromJson(Map<String, dynamic> json) {
