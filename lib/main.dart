@@ -1,6 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_fluent_ui_app/models/article_category.dart';
 import 'package:flutter_fluent_ui_app/models/news_page.dart';
+import 'package:flutter_fluent_ui_app/widgets/news_list.dart';
 import 'package:window_manager/window_manager.dart';
 
 void main() async {
@@ -149,7 +150,7 @@ class _MyHomePageState extends State<MyHomePage> with WindowListener {
       content: NavigationBody.builder(
           index: paneIndex,
           itemBuilder: (context, index) {
-            return Text('Selected index $index');
+            return NewsListPage(newsPage: pages[index]);
           }),
     );
   }
