@@ -79,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> with WindowListener {
     NewsPage(
         title: 'Science',
         iconData: FluentIcons.communications,
-        category: ArticleCategory.sicence),
+        category: ArticleCategory.science),
     NewsPage(
         title: 'Health',
         iconData: FluentIcons.health,

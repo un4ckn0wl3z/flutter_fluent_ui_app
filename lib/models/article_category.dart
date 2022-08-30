@@ -4,6 +4,6 @@ enum ArticleCategory {
   technology,
   entertainment,
   sports,
-  sicence,
+  science,
   health
 }
